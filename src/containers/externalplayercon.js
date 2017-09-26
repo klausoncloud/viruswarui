@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setExternalPlayerTestURL } from './../actions/actions';
+import { setExternalPlayerTestURL, setExternalPlayer } from './../actions/actions';
 import ExternalProgram from './../components/developerpage/externalprogram';
 
 const mapStateToProps = (state) => {
@@ -13,6 +13,9 @@ const mapDispatchToProbs = (dispatch) => {
 	return ({
 		onTestButtonClick: url => {
 		    dispatch(setExternalPlayerTestURL(url));
+		},
+		onAddButtonClick: url => {
+		    dispatch(setExternalPlayer(url));
 		}
 	});
 }

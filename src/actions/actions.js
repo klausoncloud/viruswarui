@@ -35,11 +35,11 @@ export const setPlayerStatus = (playerId, status) => {
   }
 }
 
-export const setExternalPlayer = externalPlayer => {
+export const setExternalPlayer = externalPlayerURL => {
   return {
     type : ACTION_TYPE.SET_EXTERNAL_PLAYER,
     // Todo: Convert URL into an external player!
-    externalPlayer : externalPlayer
+    externalPlayerURL : externalPlayerURL
   }
 }
 

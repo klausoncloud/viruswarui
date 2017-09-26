@@ -22,10 +22,6 @@ class Player {
     return this._name;
   }
 
-  getType() {
-    return this._type;
-  }
-
   getColorCellOccupied() {
     return this._colorCellOccupied;
   }
@@ -73,6 +69,8 @@ class Player {
       new Player(3, 'Program Four', 0, '#33b5e5', '#0099cc', '#33b5e5')
     ];
   }
+
+  static externalPlayerTypeIdx = 3; // Oh so dirty...
 
   static defaultPlayerTypes() {
     return [ 

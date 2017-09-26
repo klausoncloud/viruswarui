@@ -9,7 +9,9 @@ class ExternalProgram extends Component {
   }
 
   handleAddRequest() {
+    let programURL = document.getElementById("basic-url").value;
 
+    this.props.onAddButtonClick(programURL);
   }
 
   renderAlert(externalProgramStatus) {
@@ -55,7 +57,7 @@ class ExternalProgram extends Component {
           <label htmlFor="basic-url">Your program server URL</label>
           <div className="input-group">
             <span className="input-group-addon" id="basic-addon3">http://example.com:3000/</span>
-            <input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"
+            <input type="url" className="form-control" id="basic-url" aria-describedby="basic-addon3"
               defaultValue = { this.props.externalProgramURL }
             >
             </input>

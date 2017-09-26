@@ -9,7 +9,7 @@ class PlayerList extends Component {
     const name = target.name;
     const value = target.value;
 
-    this.props.selectChangeHandler(name, value);
+    this.props.setPlayerType(name, value);
   }
 
   renderPlayerIcon(player) {
@@ -31,8 +31,8 @@ class PlayerList extends Component {
       <div className="container">
 
         <label>Programs</label>
-        { 
-          this.props.players.map ( player =>
+        {
+          this.props.players.map ( player => 
             <div className="input-group" key={ player.getId() } >
               <span className="input-group-addon bg-light" id="addonState">
                 { this.renderPlayerIcon(player) }
@@ -45,7 +45,7 @@ class PlayerList extends Component {
                   type => <option key={ type.data } value={ type.data } > { type.description } </option>)}
 
               </select>
-            </div>)
+            </div> )
         }
           
       </div>

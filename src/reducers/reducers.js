@@ -7,7 +7,6 @@ const initialState = {
 		players : Player.defaultPlayers(),
 	    playerTypes : Player.defaultPlayerTypes(),
 
-	    externalPLayer : null,
 	    externalPlayerURL : "",
 	    externalPlayerURLTestResult : undefined,
 
@@ -21,15 +20,27 @@ const initialState = {
 const setOnePlayerStatus = (players, id, status) => {
     let result = [];
     for (let i = 0; i < players.length; i++) {
-        let player = players[i].clone();
         if (i === id) {
-            //result.push( Object.assign({}, players[i], { _status : status } ) );
+            let player = players[i].clone();
             player.setStatus(status);
+            result.push(player);
         } else {
-            //result.push( Object.assign({}, players[i], { } ) );
+            result.push(players[i]);
         }
-        result.push(player);
-        
+    }
+    return result;
+}
+
+const setOnePlayerType = (players, playerId, typeId) => {
+    let result = [];
+    for (let i = 0; i < players.length; i++) {
+        if (i === playerId) {
+            let player = players[i].clone();
+            player.setPlayerType(typeId);
+            result.push(player);
+        } else {
+            result.push(players[i]);
+        }
     }
     return result;
 }
@@ -53,9 +64,9 @@ const viruswarUIAppReducer = ( state = initialState, action ) => {
             let players = setOnePlayerStatus(state.players, action.playerId, action.status);
             let messages = state.messages;
             if (action.status === Player.WON) {
-                messages += "Program " + action.playerId + " is a winner.\n";
+                messages += "Program " + (action.playerId + 1) + " is a winner.\n";
             } else if (action.status === Player.LOST) {
-                messages += "Program " + action.playerId + " lost.\n";
+                messages += "Program " + (action.playerId + 1) + " lost.\n";
             }
 
             return (
@@ -65,6 +76,16 @@ const viruswarUIAppReducer = ( state = initialState, action ) => {
                         messages : messages
                     })
             );
+
+        case ACTION_TYPE.SET_PLAYER_TYPE:
+            players = setOnePlayerType(state.players, action.playerId, action.typeId);
+            return (
+                Object.assign({}, state, 
+                    {
+                        players : players
+                    })
+            );
+
 
         case ACTION_TYPE.SET_MOVES:
             return (
@@ -111,6 +132,25 @@ const viruswarUIAppReducer = ( state = initialState, action ) => {
                 Object.assign({}, state, 
                     { 
                         messages : ""
+                    })
+            );
+
+        case ACTION_TYPE.SET_EXTERNAL_PLAYER:
+            let playerTypes = state.playerTypes.slice(0);
+            let newPlayerType = 
+                { type : 'url', 
+                  data : Player.externalPlayerTypeIdx.toString(), 
+                  description : action.externalPlayerURL };
+            if (playerTypes.length > Player.externalPlayerTypeIdx) {
+                playerTypes[Player.externalPlayerTypeIdx] = newPlayerType;
+            } else {
+                playerTypes.push(newPlayerType);
+            }
+            return (
+                Object.assign({}, state, 
+                    { 
+                        playerTypes : playerTypes,
+                        externalPlayerURL : action.externalPlayerURL
                     })
             );
 

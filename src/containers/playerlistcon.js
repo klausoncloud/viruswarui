@@ -1,20 +1,20 @@
 import { connect } from 'react-redux';
-import { setExternalPlayerTestURL } from './../actions/actions';
-import ExternalProgram from './../components/gamepage/playerlist';
+import { setExternalPlayerTestURL, setPlayerType } from './../actions/actions';
+import PlayerList from './../components/gamepage/playerlist';
 
 const mapStateToProps = (state) => {
-	console.log("mapping redux")
-	console.log(state);
 	return ({
         externalProgramURL : state.externalPlayerURL,
-        externalProgramStatus : state.externalPlayerURLTestResult
+        externalProgramStatus : state.externalPlayerURLTestResult,
+        players : state.players,
+        playerTypes : state.playerTypes
 	});
 }
 
 const mapDispatchToProbs = (dispatch) => {
 	return ({
-		onTestButtonClick: url => {
-		    dispatch(setExternalPlayerTestURL(url));
+		setPlayerType: (playerId, typeId) => {
+		    dispatch(setPlayerType(playerId, typeId));
 		}
 	});
 }

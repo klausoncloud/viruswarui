@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import GameBoardCon from './../../containers/gameboardcon';
 import GameControlCon from './../../containers/gamecontrolcon';
-import PlayerList from './playerlist';
+import PlayerListCon from './../../containers/playerlistcon';
 
 
 
@@ -38,11 +38,7 @@ class TheGame extends Component {
           <div className="col-5  d-flex flex-column gameboardContainer">
 
             <div className="playerControls">
-              <PlayerList 
-                players={ this.props.players } 
-                playerTypes={ this.props.playerTypes } 
-                selectChangeHandler = { (playerId, playerTypeId) => { this.handlePlayerTypeSelection(playerId, playerTypeId) } }
-              />
+              <PlayerListCon />
             </div>
 
             <div className="messageBox mt-auto">
