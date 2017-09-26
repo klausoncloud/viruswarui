@@ -1,11 +1,9 @@
 import { connect } from 'react-redux';
-import { setExternalPlayerTestURL, setPlayerType } from './../actions/actions';
+import { setPlayerType } from './../actions/actions';
 import PlayerList from './../components/gamepage/playerlist';
 
 const mapStateToProps = (state) => {
 	return ({
-        externalProgramURL : state.externalPlayerURL,
-        externalProgramStatus : state.externalPlayerURLTestResult,
         players : state.players,
         playerTypes : state.playerTypes
 	});

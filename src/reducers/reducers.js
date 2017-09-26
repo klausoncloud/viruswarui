@@ -13,6 +13,7 @@ const initialState = {
 	    moves : [],
 
         gameViz : 'IDLE',
+        storedCanvas : null,
 
         messages : ""
 }
@@ -162,6 +163,11 @@ const viruswarUIAppReducer = ( state = initialState, action ) => {
         case ACTION_TYPE.SET_EXTERNAL_PLAYER_URL_TEST_RESULT:
             return (
             	Object.assign({}, state, { externalPlayerURLTestResult : action.result })
+            );
+
+        case ACTION_TYPE.STORE_CANVAS:
+            return (
+                Object.assign({}, state, { storedCanvas : action.image })
             );
 
         default:

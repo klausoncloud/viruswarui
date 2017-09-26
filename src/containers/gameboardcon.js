@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setPlayerStatus, setMoves, gameOver } from './../actions/actions';
+import { setPlayerStatus, setMoves, gameOver, storeCanvas } from './../actions/actions';
 import GameBoard from './../components/gamepage/gameboard';
 
 const mapStateToProps = (state) => {
@@ -12,7 +12,8 @@ const mapStateToProps = (state) => {
 	    externalPlayerURL : state.externalPlayerURL,
 	    externalPlayerURLTestResult : state.externalPlayerURLTestResult,
 
-	    gameViz : state.gameViz
+	    gameViz : state.gameViz,
+	    storedCanvas : state.storedCanvas
 	});
 }
 
@@ -28,6 +29,10 @@ const mapDispatchToProbs = (dispatch) => {
 
 		setGameOver: () => {
 			dispatch(gameOver());
+		},
+
+		storeCanvas: (image) => {
+			dispatch(storeCanvas(image));
 		}
 	});
 }

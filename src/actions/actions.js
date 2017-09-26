@@ -69,3 +69,10 @@ export const clearMessages = () => {
     type : ACTION_TYPE.CLEAR_MESSAGES
   }
 }
+
+export const storeCanvas = (image) => {
+  return {
+    type : ACTION_TYPE.STORE_CANVAS,
+    image : image
+  }
+}

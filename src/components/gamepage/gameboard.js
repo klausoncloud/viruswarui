@@ -105,7 +105,7 @@ class GameBoard extends Component {
         this.visualizeMove(this.props.moves[this.nextMove]);
         this.nextMove++;
       } else {
-        if (this.props.gameViz !== "IDLE") {
+        if (this.props.gameViz === 'RUNNING') {
           this.endVisualizeGame();
         }
       }
@@ -114,7 +114,37 @@ class GameBoard extends Component {
 
   componentDidMount() {
     this.clearCanvas();
-    this.setupGameVisualization();
+    if (this.props.storedCanvas != null) {
+      let ctx = document.getElementById("gameBoardCanvas").getContext("2d");
+      ctx.putImageData(this.props.storedCanvas, 0, 0);
+    }
+  }
+
+  componentWillUnmount() {
+
+    console.log("Gameboard/componentWillUnmount")
+
+    // stop the thread
+    if (this.props.gameViz === 'RUNNING') {
+      clearInterval(this.interval);
+    }
+
+    let ctx = document.getElementById("gameBoardCanvas").getContext("2d");
+    let image = ctx.getImageData(0, 0, boardDims.boardLength, boardDims.boardLength);
+    this.props.storeCanvas(image);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.gameViz !== this.props.gameViz) {
+
+      if (this.props.gameViz === 'IDLE') {
+        clearInterval(this.interval);
+      } else {
+        // Start the thread
+        this.clearCanvas();
+        this.setupGameVisualization();
+      }
+    }
   }
 
   render() {
