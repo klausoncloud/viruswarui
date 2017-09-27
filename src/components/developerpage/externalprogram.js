@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
+import GameServer from './../../actions/gameserver';
+
 class ExternalProgram extends Component {
 
   handleTestRequest() {
   	let programURL = document.getElementById("basic-url").value;
+
+    GameServer.testGetMoves();
 
     this.props.onTestButtonClick(programURL);
   }

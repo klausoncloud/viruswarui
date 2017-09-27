@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { setPlayerStatus, setMoves } from './../actions/actions';
 import TheGame from './../components/gamepage/thegame';
 
 const mapStateToProps = (state) => {
@@ -11,21 +10,8 @@ const mapStateToProps = (state) => {
 	});
 }
 
-const mapDispatchToProbs = (dispatch) => {
-	return ({
-		setPlayerStatus: (id, status) => {
-		    dispatch(setPlayerStatus(id, status));
-		},
-
-		setMovesToPlay: (moves) => {
-			dispatch(setMoves(moves));
-		}
-	});
-}
-
 const TheGameCon = connect (
   mapStateToProps,
-  mapDispatchToProbs
 )(TheGame);
 
 export default TheGameCon;

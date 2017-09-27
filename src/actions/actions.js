@@ -1,4 +1,6 @@
-import * as ACTION_TYPE from './actiontypes'
+import * as ACTION_TYPE from './actiontypes';
+
+import GameServer from './gameserver';
 
 export const setPlayerType = (playerId, typeId) => {
   return {
@@ -57,13 +59,6 @@ export const setExternalPlayerURLTestResult = result => {
   }
 }
 
-export const addMessage = message => {
-  return {
-    type : ACTION_TYPE.ADD_MESSAGE,
-    message : message
-  }
-}
-
 export const clearMessages = () => {
   return {
     type : ACTION_TYPE.CLEAR_MESSAGES
@@ -74,5 +69,15 @@ export const storeCanvas = (image) => {
   return {
     type : ACTION_TYPE.STORE_CANVAS,
     image : image
+  }
+}
+
+export function loadMoves() {
+  return function (dispatch) {
+    return GameServer.testGetMoves().then(moves => {
+      dispatch(setMoves(moves))
+    }).catch(error => { 
+      throw(error);
+    });
   }
 }

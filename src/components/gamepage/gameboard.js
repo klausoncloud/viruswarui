@@ -121,9 +121,6 @@ class GameBoard extends Component {
   }
 
   componentWillUnmount() {
-
-    console.log("Gameboard/componentWillUnmount")
-
     // stop the thread
     if (this.props.gameViz === 'RUNNING') {
       clearInterval(this.interval);

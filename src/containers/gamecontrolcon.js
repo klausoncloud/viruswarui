@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { startGame } from './../actions/actions';
+import { startGame, loadMoves } from './../actions/actions';
 import GameControl from './../components/gamepage/gamecontrol';
 
 const mapStateToProps = (state) => {
@@ -11,7 +11,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProbs = (dispatch) => {
 	return ({
 		startButtonHandler: () => {
-		    dispatch(startGame());
+		    //dispatch(startGame());
+		    dispatch(loadMoves());
 		}
 	});
 }

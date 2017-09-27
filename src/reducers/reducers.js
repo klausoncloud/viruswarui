@@ -87,10 +87,17 @@ const viruswarUIAppReducer = ( state = initialState, action ) => {
                     })
             );
 
-
+        // Todo: This is a game start. Collapse the two.
         case ACTION_TYPE.SET_MOVES:
             return (
-          	    Object.assign({}, state, { moves : action.moves })
+          	    Object.assign({}, state, 
+                    { 
+                        moves : action.moves,
+                        gameViz : 'RUNNING',
+                        // This is dirty!
+                        players : setPlayersAlive(state.players),
+                        messages : "Starting a game.\n"
+                    })
             );
 
         case ACTION_TYPE.START_GAME:
@@ -114,16 +121,6 @@ const viruswarUIAppReducer = ( state = initialState, action ) => {
                         gameViz : 'IDLE',
                         // This is dirty!
                         messages : messages 
-                    })
-            );
-
-        case ACTION_TYPE.ADD_MESSAGE:
-            let newMessages = state.messages;
-            newMessages += action.message;
-            return (
-                Object.assign({}, state, 
-                    { 
-                        messages : newMessages
                     })
             );
 

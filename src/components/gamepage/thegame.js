@@ -8,15 +8,6 @@ import PlayerListCon from './../../containers/playerlistcon';
 
 class TheGame extends Component {
 
-  handlePlayerTypeSelection(playerId, playerTypeId) {
-    console.log("Player selection event.");
-    console.log("Player :", playerId);
-    console.log("Type :", playerTypeId);
-
-    // Todo: Store the changed selection.
-    // Do we need to create new Player objects? Would be clean. But not needed?
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.messages !== this.props.messages) {
       let textarea = document.getElementById("messageArea");
