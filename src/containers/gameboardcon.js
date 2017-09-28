@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setPlayerStatus, setMoves, gameOver, storeCanvas } from './../actions/actions';
+import { setPlayerStatus, gameOver, storeCanvas } from './../actions/actions';
 import GameBoard from './../components/gamepage/gameboard';
 
 const mapStateToProps = (state) => {
@@ -21,10 +21,6 @@ const mapDispatchToProbs = (dispatch) => {
 	return ({
 		setPlayerStatus: (id, status) => {
 		    dispatch(setPlayerStatus(id, status));
-		},
-
-		setMovesToPlay: (moves) => {
-			dispatch(setMoves(moves));
 		},
 
 		setGameOver: () => {

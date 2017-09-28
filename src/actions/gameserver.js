@@ -1,13 +1,15 @@
 import fetch from 'isomorphic-fetch'
 
 import Move from './../model/move'
+import * as STATUS from './../model/externalprogramstatus'
 
 
 class GameServer {
 
     // let url = 'http://localhost:8080/simpleviruswar/rest/start';
 	 // web pack proxy will forward
-    static url = '/simpleviruswar/rest/start';
+    static urlStart = '/simpleviruswar/rest/start';
+    static urlTestPlayer = '/simpleviruswar/rest/testPlayer';
 
     static _buildPlayersJSONString(players, playerTypes) {
     	/*
@@ -36,7 +38,7 @@ class GameServer {
 
 	static getMoves (players, playerTypes) {
 
-      let url = this.url; 	     
+      let url = this.urlStart; 	     
 	  let payload = { 
 	  	method : 'POST',
 	  	headers : {
@@ -65,13 +67,43 @@ class GameServer {
 		      });
 	}
 
-    /*
-	static testGetMoves() {
+	static testPlayer (url) {
 
-	    let moves = this.getMoves(Player.defaultPlayers(), Player.defaultPlayerTypes());
-	    return moves;
+      /*
+      let url = this.urlTestPlayer;
+      let bodyObject = { url : url }; 	     
+	  let payload = { 
+	  	method : 'POST',
+	  	headers : {
+	  		'Content-Type' : 'application/json'
+	  	},
+	  	body : JSON.stringify(bodyObject);
+	  };
+	  
+	  return fetch(url, payload).then( response => {
+		  	if (response.status >= 400) {
+		  		console.log("Error response from server" + response.status);
+		  		return "[]";
+		  	} else {
+		  		return response.json();
+		  	}
+		  } ).then( function(jsonData) {
+		  	    let result = JSON.parse(jsonData);
+
+		  	    return result;
+		      });
+      */
+
+	  return new Promise(
+	  	(resolve, reject) => {
+	  		let result = { 
+	  			status: STATUS.EXTERNALPROGRAM_TEST_OK, 
+	  			message: "Perfect." 
+	  		};
+
+	  		resolve(result);
+	  	});
 	}
-	*/
 }
 
 

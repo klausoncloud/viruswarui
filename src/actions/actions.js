@@ -10,16 +10,16 @@ export const setPlayerType = (playerId, typeId) => {
   }
 }
 
-export const setMoves = moves => {
+export const startGame = (moves) => {
   return {
-    type : ACTION_TYPE.SET_MOVES,
+    type : ACTION_TYPE.START_GAME,
     moves : moves
   }
 }
 
-export const startGame = () => {
+export const testStartGame = () => {
   return {
-    type : ACTION_TYPE.START_GAME,
+    type : ACTION_TYPE.TEST_START_GAME,
   }
 }
 
@@ -45,23 +45,24 @@ export const setExternalPlayer = externalPlayerURL => {
   }
 }
 
-export const setExternalPlayerTestURL = url => {
+export const setExternalPlayerTestURL = (url, status, message) => {
   return {
     type : ACTION_TYPE.SET_EXTERNAL_PLAYER_TESTURL,
-    externalPlayerURL : url
-  }
-}
-
-export const setExternalPlayerURLTestResult = result => {
-  return {
-    type : ACTION_TYPE.SET_EXTERNAL_PLAYER_URL_TEST_RESULT,
-    result : result
+    externalPlayerURL : url,
+    externalPlayerStatus : status,
+    externalPlayerMessage : message
   }
 }
 
 export const clearMessages = () => {
   return {
     type : ACTION_TYPE.CLEAR_MESSAGES
+  }
+}
+
+export const clearExternalPlayerTestResult = () => {
+  return {
+    type : ACTION_TYPE.CLEAR_EXTERNAL_PLAYER_TESTRESULT
   }
 }
 
@@ -72,10 +73,20 @@ export const storeCanvas = (image) => {
   }
 }
 
-export function loadMoves(players, playerTypes) {
+export function requestGameStart(players, playerTypes) {
   return function (dispatch) {
-    return GameServer.getMoves(players, playerTypes).then(moves => {
-      dispatch(setMoves(moves))
+    return GameServer.getMoves(players, playerTypes).then( moves => {
+      dispatch(startGame(moves))
+    }).catch(error => { 
+      throw(error);
+    });
+  }
+}
+
+export function requestTestExternalPlayer(url) {
+  return function (dispatch) {
+    return GameServer.testPlayer(url).then( (result) => {
+      dispatch(setExternalPlayerTestURL(url, result.status, result.message))
     }).catch(error => { 
       throw(error);
     });

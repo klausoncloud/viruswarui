@@ -1,6 +1,7 @@
 import Player from './../model/player'
 import Move from './../model/move'
 import * as ACTION_TYPE from './../actions/actiontypes'
+import * as EP_STATUS from './../model/externalprogramstatus'
 
 const initialState = {
 
@@ -8,7 +9,8 @@ const initialState = {
 	    playerTypes : Player.defaultPlayerTypes(),
 
 	    externalPlayerURL : "",
-	    externalPlayerURLTestResult : undefined,
+	    externalPlayerStatus : undefined,
+        externalPlayerMessage : "",
 
 	    moves : [],
 
@@ -88,7 +90,7 @@ const viruswarUIAppReducer = ( state = initialState, action ) => {
             );
 
         // Todo: This is a game start. Collapse the two.
-        case ACTION_TYPE.SET_MOVES:
+        case ACTION_TYPE.START_GAME:
             return (
           	    Object.assign({}, state, 
                     { 
@@ -100,7 +102,9 @@ const viruswarUIAppReducer = ( state = initialState, action ) => {
                     })
             );
 
-        case ACTION_TYPE.START_GAME:
+        // This action is only for test purposes. It allows the UI
+        // to work without a running server.
+        case ACTION_TYPE.TEST_START_GAME:
             return (
                 Object.assign({}, state, 
                     { 
@@ -148,19 +152,30 @@ const viruswarUIAppReducer = ( state = initialState, action ) => {
                 Object.assign({}, state, 
                     { 
                         playerTypes : playerTypes,
-                        externalPlayerURL : action.externalPlayerURL
+                        externalPlayerURL : action.externalPlayerURL,
+                        externalPlayerStatus : EP_STATUS.EXTERNALPROGRAM_ADD_OK
                     })
             );
 
         case ACTION_TYPE.SET_EXTERNAL_PLAYER_TESTURL:
             return (
-            	Object.assign({}, state, { externalPlayerURL : action.externalPlayerURL })
+            	Object.assign({}, state, 
+                    { 
+                        externalPlayerURL : action.externalPlayerURL,
+                        externalPlayerStatus : action.externalPlayerStatus,
+                        externalPlayerMessage : action.externalPlayerMessage
+                    })
             );
 
-        case ACTION_TYPE.SET_EXTERNAL_PLAYER_URL_TEST_RESULT:
+        case ACTION_TYPE.CLEAR_EXTERNAL_PLAYER_TESTRESULT:
             return (
-            	Object.assign({}, state, { externalPlayerURLTestResult : action.result })
+                Object.assign({}, state, 
+                    { 
+                        externalPlayerStatus : undefined,
+                        externalPlayerMessage : ""
+                    })
             );
+
 
         case ACTION_TYPE.STORE_CANVAS:
             return (
