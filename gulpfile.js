@@ -14,7 +14,7 @@ var changed = require('gulp-changed');
 //////////////
 
 var SCSS_SRC = './src/stylesheets/scss/**/*.scss';
-var SCSS_DEST = './src/sylesheets/css';
+var SCSS_DEST = './src/stylesheets/css';
 
 // Compile SCCS
 gulp.task('compile_scss', function(){

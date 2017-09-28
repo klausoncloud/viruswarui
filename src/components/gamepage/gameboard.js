@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 
 import Player from './../../model/player';
 
+
+// Right now, the server only supports a fixed 40 * 20 field
 const boardDims = {
   boardLength : 400,
-  tileLength : 10
+
+  tileRowPx : 20,
+  tileColPx : 10
 }
 
 class GameBoard extends Component {
@@ -20,16 +24,16 @@ class GameBoard extends Component {
     let ctx = document.getElementById("gameBoardCanvas").getContext("2d");
     ctx.clearRect(0, 0, boardDims.boardLength, boardDims.boardLength);
 
-    let maxIdx = boardDims.boardLength / boardDims.tileLength;
-    for (let row = 0; row < maxIdx; row++) {
-      for (let col = 0; col < maxIdx; col++) {
+    let maxIdxRow = boardDims.boardLength / boardDims.tileRowPx;
+    let maxIdxCol = boardDims.boardLength / boardDims.tileColPx;
+    for (let row = 0; row < maxIdxRow; row++) {
+      for (let col = 0; col < maxIdxCol; col++) {
         if (col % 2 === row % 2) {
-          let pixLen = boardDims.tileLength;
-          let pixCol = col * pixLen;
-          let pixRow = row * pixLen;
+          let pixCol = col * boardDims.tileColPx;
+          let pixRow = row * boardDims.tileRowPx;
           // To do: the color should be the page background. Should be in css
           ctx.fillStyle = "white";
-          ctx.fillRect(pixCol, pixRow, pixLen, pixLen);
+          ctx.fillRect(pixCol, pixRow, boardDims.tileColPx, boardDims.tileRowPx);
         }
       }
     }
@@ -37,41 +41,41 @@ class GameBoard extends Component {
 
   visualizeMove(move) {
     let ctx = document.getElementById("gameBoardCanvas").getContext("2d");
-    let len = boardDims.tileLength;
-    let row = move.getRow() * len;
-    let col = move.getCol() * len;
+
+    let row = move.getRow() * boardDims.tileRowPx;
+    let col = move.getCol() * boardDims.tileColPx;
 
     let player = this.props.players[move.getPlayerId()];
 
     switch (move.getImpact()) {
 
           case 'exit':
-            ctx.clearRect(col, row, len, len);
+            ctx.clearRect(col, row, boardDims.tileColPx, boardDims.tileRowPx);
             break;
           case 'hit' :
             ctx.strokeStyle = player.getColorCellHit();
             ctx.moveTo(col, row);
-            ctx.lineTo(col + len, row + len);
+            ctx.lineTo(col + boardDims.tileColPx, row + boardDims.tileRowPx);
             ctx.stroke();
-            ctx.moveTo(col, row + len);
-            ctx.lineTo(col + len, row);
+            ctx.moveTo(col, row + boardDims.tileRowPx);
+            ctx.lineTo(col + boardDims.tileColPx, row);
             ctx.stroke();
             break;
           case 'miss':
             ctx.fillStyle = player.getColorCellMiss();
             ctx.beginPath();
-            ctx.arc(col + len/2, row + len/2, len/3, 0, 2*Math.PI);
+            ctx.arc(col + boardDims.tileColPx/2, row + boardDims.tileRowPx/2, boardDims.tileColPx/3, 0, 2*Math.PI);
             ctx.fill();
             break;
           case 'enter':
             ctx.fillStyle = player.getColorCellOccupied();
             //ctx.fillRect(col, row, len, len);
             ctx.beginPath();
-            ctx.moveTo(col, row + len/2);
-            ctx.lineTo(col + len/2, row);
-            ctx.lineTo(col + len, row + len/2);
-            ctx.lineTo(col + len/2, row + len);
-            ctx.lineTo(col, row + len/2);
+            ctx.moveTo(col, row + boardDims.tileRowPx/2);
+            ctx.lineTo(col + boardDims.tileColPx/2, row);
+            ctx.lineTo(col + boardDims.tileColPx, row + boardDims.tileRowPx/2);
+            ctx.lineTo(col + boardDims.tileColPx/2, row + boardDims.tileRowPx);
+            ctx.lineTo(col, row + boardDims.tileRowPx/2);
             ctx.fill();
             break;
           case 'lose':

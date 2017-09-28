@@ -4,15 +4,16 @@ import GameControl from './../components/gamepage/gamecontrol';
 
 const mapStateToProps = (state) => {
 	return ({
-        gameViz : state.gameViz
+        players : state.players,
+        playerTypes : state.playerTypes
 	});
 }
 
 const mapDispatchToProbs = (dispatch) => {
 	return ({
-		startButtonHandler: () => {
+		startButtonHandler: (players, playerTypes) => {
 		    //dispatch(startGame());
-		    dispatch(loadMoves());
+		    dispatch(loadMoves(players, playerTypes));
 		}
 	});
 }

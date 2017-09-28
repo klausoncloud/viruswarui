@@ -4,6 +4,8 @@ import {
   Route
 } from 'react-router-dom';
 
+import './stylesheets/css/default.min.css';
+
 
 // Components
 

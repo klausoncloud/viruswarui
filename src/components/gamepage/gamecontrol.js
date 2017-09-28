@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class GameControl extends Component {
 
   handleButtonPressed() {
-    this.props.startButtonHandler();
+    this.props.startButtonHandler(this.props.players, this.props.playerTypes);
   }
 
   render() {

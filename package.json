@@ -23,6 +23,12 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-change": "^1.0.0",
+    "gulp-changed": "^3.1.0",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
     "redux-devtools": "^3.4.0"
   },
   "proxy": "http://localhost:8080/"

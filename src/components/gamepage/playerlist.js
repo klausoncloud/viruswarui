@@ -6,8 +6,8 @@ class PlayerList extends Component {
 
   handleSelectionChange(event) {
     const target = event.target;
-    const name = target.name;
-    const value = target.value;
+    const name = parseInt(target.name, 10);
+    const value = parseInt(target.value, 10);
 
     this.props.setPlayerType(name, value);
   }

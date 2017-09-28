@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch'
 
-import Player from './../model/player'
 import Move from './../model/move'
 
 
@@ -66,11 +65,13 @@ class GameServer {
 		      });
 	}
 
+    /*
 	static testGetMoves() {
 
 	    let moves = this.getMoves(Player.defaultPlayers(), Player.defaultPlayerTypes());
 	    return moves;
 	}
+	*/
 }
 
 

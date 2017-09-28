@@ -7,7 +7,7 @@ class Player {
   constructor(id, name, type, colorCellOccupied, colorCellHit, colorCellMiss, status = Player.ALIVE) {
     this._id = id;
     this._name = name;
-    this._playerType = type;
+    this._type = type;
     this._colorCellOccupied = colorCellOccupied;
     this._colorCellHit = colorCellHit;
     this._colorCellMiss = colorCellMiss;
@@ -35,11 +35,11 @@ class Player {
   }
 
   getPlayerType(playerType) {
-    return this._playerType;
+    return this._type;
   }
 
   setPlayerType(playerType) {
-    this._playerType = playerType;
+    this._type = playerType;
   }
 
   getStatus() {

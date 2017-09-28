@@ -72,9 +72,9 @@ export const storeCanvas = (image) => {
   }
 }
 
-export function loadMoves() {
+export function loadMoves(players, playerTypes) {
   return function (dispatch) {
-    return GameServer.testGetMoves().then(moves => {
+    return GameServer.getMoves(players, playerTypes).then(moves => {
       dispatch(setMoves(moves))
     }).catch(error => { 
       throw(error);
