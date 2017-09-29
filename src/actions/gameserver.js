@@ -18,7 +18,7 @@ class GameServer {
 	      { 'type' : 'builtin', 'data' : 0, 'id' : 0 },
 	      { 'type' : 'builtin', 'data' : 0, 'id' : 1 },
 	      { 'type' : 'builtin', 'data' : 0, 'id' : 2 },
-	      { 'type' : 'url', 'data' : 4, 'id' : 3 }
+	      { 'type' : 'url', 'data' : 'http:/...', 'id' : 3 }
 	    ]
     	*/
     	let apiPlayers = [];
@@ -33,6 +33,7 @@ class GameServer {
     		    }
     		);
     	}
+
         return JSON.stringify(apiPlayers);
     }
 
@@ -67,17 +68,19 @@ class GameServer {
 		      });
 	}
 
-	static testPlayer (url) {
+	static testPlayer (playerUrl) {
 
-      /*
       let url = this.urlTestPlayer;
-      let bodyObject = { url : url }; 	     
+      let bodyObject = { 
+      	'type': 'url',
+      	'data': playerUrl,
+      	'id' : 0 }; 	     
 	  let payload = { 
 	  	method : 'POST',
 	  	headers : {
 	  		'Content-Type' : 'application/json'
 	  	},
-	  	body : JSON.stringify(bodyObject);
+	  	body : JSON.stringify(bodyObject)
 	  };
 	  
 	  return fetch(url, payload).then( response => {
@@ -88,12 +91,14 @@ class GameServer {
 		  		return response.json();
 		  	}
 		  } ).then( function(jsonData) {
-		  	    let result = JSON.parse(jsonData);
-
+		  	    let result = jsonData;
+                // Allows interception for tests
 		  	    return result;
 		      });
-      */
+	}
 
+    // For test purposes only.
+    static testPlayerTest (playerUrl) {
 	  return new Promise(
 	  	(resolve, reject) => {
 	  		let result = { 

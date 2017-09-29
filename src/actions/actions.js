@@ -1,4 +1,5 @@
 import * as ACTION_TYPE from './actiontypes';
+import * as EP_STATUS from './../model/externalprogramstatus';
 
 import GameServer from './gameserver';
 
@@ -45,7 +46,15 @@ export const setExternalPlayer = externalPlayerURL => {
   }
 }
 
-export const setExternalPlayerTestURL = (url, status, message) => {
+export const setExternalPlayerTestURL = (url, passed, message) => {
+  let status;
+
+  if (passed) {
+    status = EP_STATUS.EXTERNALPROGRAM_TEST_OK;
+  } else {
+    status = EP_STATUS.EXTERNALPROGRAM_TEST_FAILURE;
+  }
+
   return {
     type : ACTION_TYPE.SET_EXTERNAL_PLAYER_TESTURL,
     externalPlayerURL : url,
@@ -86,7 +95,7 @@ export function requestGameStart(players, playerTypes) {
 export function requestTestExternalPlayer(url) {
   return function (dispatch) {
     return GameServer.testPlayer(url).then( (result) => {
-      dispatch(setExternalPlayerTestURL(url, result.status, result.message))
+      dispatch(setExternalPlayerTestURL(url, result.passed, result.message))
     }).catch(error => { 
       throw(error);
     });
