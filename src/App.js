@@ -19,7 +19,7 @@ import DeveloperPageCon from './containers/developerpagecon'
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Router basename="/simpleviruswar">
         <div className="container-fluid ">
           <Header />
           <Route exact path='/' component={GamePage} />

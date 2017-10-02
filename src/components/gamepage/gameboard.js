@@ -103,6 +103,8 @@ class GameBoard extends Component {
         this.moves = this.props.moves
         this.clearCanvas();
         this.nextMove = 0;
+
+        console.log("Gameboard/setupVisualization: Moves changed!");
       }
 
       if (this.props.moves != null && this.nextMove < this.props.moves.length) {
@@ -136,6 +138,7 @@ class GameBoard extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log("Gameboard/componentDidUpdate...");
     if (prevProps.gameViz !== this.props.gameViz) {
 
       if (this.props.gameViz === 'IDLE') {
