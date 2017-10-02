@@ -2,8 +2,9 @@
   "name": "viruswarui",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://ec2-34-213-139-171.us-west-2.compute.amazonaws.com/simpleviruswar",
+  "homepage" : "./",
   
+
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "es6-promise": "^4.1.1",

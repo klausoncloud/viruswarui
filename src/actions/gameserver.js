@@ -6,12 +6,7 @@ import * as STATUS from './../model/externalprogramstatus'
 
 class GameServer {
 
-    // let url = 'http://localhost:8080/simpleviruswar/rest/start';
-	// web pack proxy will forward
-    //static urlStart = '/simpleviruswar/rest/start';
-    //static urlTestPlayer = '/simpleviruswar/rest/testPlayer';
-
-    static urlBase = 'http:\/\/ec2-34-213-139-171.us-west-2.compute.amazonaws.com/simpleviruswar/rest';
+    static urlBase = '/simpleviruswar/rest';
     static urlStart = GameServer.urlBase + '/start';
     static urlTestPlayer = GameServer.urlBase + '/testPlayer';
 
