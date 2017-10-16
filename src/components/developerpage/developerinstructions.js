@@ -1,21 +1,50 @@
 import React, { Component } from 'react';
-import ExternalPlayerCon from './../../containers/externalplayercon';
+import UrlPlayerCon from './../../containers/urlplayercon';
+import CodePlayerCon from './../../containers/codeplayercon';
 
 
 class DeveloperInstructions extends Component {
-
-  handleTestExternalProgram(programURL) {
-    // todo: run a test game;
-    return true;
-  }
 
   render() {
 
     return (
       <div className="container">
 
-        <div className="row mt-4">
-          <ExternalPlayerCon />
+        <div className="row">
+          <h1 className="gameHeader mt-3 mb-3">
+            Add a Competing Program
+          </h1>
+
+          <p>
+            Thank you for your interest in this little game. You can add your own
+            program in two ways: The fast and easy approach is to enter source code
+            into the editor below and let the server run it for you. However, you
+            can also setup a web service implementing your program and enter the URL
+            into the form below.
+          </p>
+
+          <p>
+            Scroll down to review details on the interface between the umpire (server)
+            and the competing programs.
+          </p>
+        </div>
+
+        <hr className="mt-4"></hr>
+
+        <div className="row container mt-4">
+          <div className="row container">
+            <h2>Option 1: Enter Python 3.6 source code</h2>
+          </div>
+          <div className="row container">
+            <CodePlayerCon />
+          </div>
+        </div>
+
+        <hr className="mt-4"></hr>
+
+        <div className="row container mt-4">
+          <h2>Option 2: URL to your webservice</h2>
+          <UrlPlayerCon />
         </div>
         
         <hr className="mt-4"></hr>
@@ -27,11 +56,26 @@ class DeveloperInstructions extends Component {
           </h1>
 
           <p>
-            Thank you for your interest in this little game. Whether you plan to write
-            a program to compete, or actually want to help to make this initiative better
-            - I do appreciate your contribution and support. The main reason for this 
-            game is to be a playground for me to keep my programming skills somewhat tuned.
-            But who knows, maybe this thing has a meaning beyond.
+            You can add a competing program either by entering the code above - or by
+            providing a web service. Both approaches require you to implement essentially
+            the same API (with obvious differences in syntax, of course).
+          </p>
+
+          <ul>
+            <li>
+              For source code, only Python 3.6 is suported. You can hit the Example button to 
+              load a running example of a competing player. Your best bet is to start with the example
+              example and to adjust it to your needs. Also, save your work on your own system.
+            </li>
+
+            <li>
+              To provide a web service, you can start using an example from GitHub (). 
+            </li>
+          </ul>
+
+          <p>
+            Regardless which option you choose. First, you need to Test It!. If the test
+            succeeds, you can hit Add Program and then use it to play some rounds.
           </p>
 
           <section>

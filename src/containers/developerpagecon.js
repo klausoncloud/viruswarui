@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
-import { setExternalPlayerTestURL } from './../actions/actions';
+import { setUrlPlayerUrl } from './../actions/actions';
 import DeveloperInstructions from './../components/developerpage/developerinstructions';
 
 const mapStateToProps = state => {
 	return ({
-        externalProgramURL : state.externalPlayerURL,
-        externalProgramStatus : state.externalPlayerURLTestResult
+        urlProgramURL : state.urlPlayerURL,
+        urlProgramStatus : state.urlPlayerURLTestResult
 	});
 }
 
 const mapDispatchToProbs = dispatch => {
 	return ({
 		onTestButtonClick: url => {
-		    dispatch(setExternalPlayerTestURL(url));
+		    dispatch(setUrlPlayerUrl(url));
 		}
 	});
 }

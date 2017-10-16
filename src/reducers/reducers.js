@@ -8,9 +8,14 @@ const initialState = {
 		players : Player.defaultPlayers(),
 	    playerTypes : Player.defaultPlayerTypes(),
 
-	    externalPlayerURL : "",
-	    externalPlayerStatus : undefined,
-        externalPlayerMessage : "",
+	    urlPlayerURL : "",
+	    urlPlayerStatus : undefined,
+        urlPlayerMessage : "",
+
+        codePlayerCode : "",               // The code submitted to run
+        codeEditorCode : "",               // The stuff in the editor
+        codeEditorCodeStatus : undefined,
+        codeEditorMessage : "",
 
 	    moves : [],
 
@@ -58,6 +63,23 @@ const setPlayersAlive = (players) => {
     }
     return result;
 
+}
+
+const addExternalPlayerType = (state, type, data, description) => {
+    let playerTypes = state.playerTypes.slice(0);
+    let newPlayerType = 
+        {   
+            id : Player.externalPlayerTypeIdx,
+            type : type, 
+            data : data, 
+            description : description 
+        };
+    if (playerTypes.length > Player.externalPlayerTypeIdx) {
+        playerTypes[Player.externalPlayerTypeIdx] = newPlayerType;
+    } else {
+        playerTypes.push(newPlayerType);
+    }
+    return playerTypes;
 }
 
 const viruswarUIAppReducer = ( state = initialState, action ) => {
@@ -137,45 +159,79 @@ const viruswarUIAppReducer = ( state = initialState, action ) => {
                     })
             );
 
-        case ACTION_TYPE.SET_EXTERNAL_PLAYER:
-            let playerTypes = state.playerTypes.slice(0);
-            let newPlayerType = 
-                { type : 'url', 
-                  data : Player.externalPlayerTypeIdx.toString(), 
-                  description : action.externalPlayerURL };
-            if (playerTypes.length > Player.externalPlayerTypeIdx) {
-                playerTypes[Player.externalPlayerTypeIdx] = newPlayerType;
-            } else {
-                playerTypes.push(newPlayerType);
-            }
+        case ACTION_TYPE.SET_URL_PLAYER:
             return (
                 Object.assign({}, state, 
                     { 
-                        playerTypes : playerTypes,
-                        externalPlayerURL : action.externalPlayerURL,
-                        externalPlayerStatus : EP_STATUS.EXTERNALPROGRAM_ADD_OK
+                        playerTypes : addExternalPlayerType(
+                                            state, 
+                                            'url',
+                                            action.urlPlayerURL,
+                                            action.urlPlayerURL),
+                        urlPlayerURL : action.urlPlayerURL,
+                        urlPlayerStatus : EP_STATUS.URL_PROGRAM_ADD_OK
                     })
             );
 
-        case ACTION_TYPE.SET_EXTERNAL_PLAYER_TESTURL:
+        case ACTION_TYPE.SET_URL_PLAYER_URL:
             return (
             	Object.assign({}, state, 
                     { 
-                        externalPlayerURL : action.externalPlayerURL,
-                        externalPlayerStatus : action.externalPlayerStatus,
-                        externalPlayerMessage : action.externalPlayerMessage
+                        urlPlayerURL : action.urlPlayerURL,
+                        urlPlayerStatus : action.urlPlayerStatus,
+                        urlPlayerMessage : action.urlPlayerMessage
                     })
             );
 
-        case ACTION_TYPE.CLEAR_EXTERNAL_PLAYER_TESTRESULT:
+        case ACTION_TYPE.CLEAR_URL_PLAYER_TESTRESULT:
             return (
                 Object.assign({}, state, 
                     { 
-                        externalPlayerStatus : undefined,
-                        externalPlayerMessage : ""
+                        urlPlayerStatus : undefined,
+                        urlPlayerMessage : ""
                     })
             );
 
+        case ACTION_TYPE.SET_CODE_PLAYER:
+            return (
+                Object.assign({}, state, 
+                    { 
+                        playerTypes : addExternalPlayerType(
+                                            state, 
+                                            'code',
+                                            action.codePlayerCode,
+                                            'Your code...'),
+                        codePlayerCode : action.codePlayerCode,
+                        codeEditorCodeStatus : EP_STATUS.CODE_PROGRAM_ADD_OK
+                    })
+            );
+
+        case ACTION_TYPE.SET_CODE_PLAYER_CODE:
+            return (
+                Object.assign({}, state, 
+                    { 
+                        codePlayerCode : action.codePlayerCode,
+                        codeEditorCodeStatus : action.codePlayerStatus,
+                        codeEditorMessage : action.codePlayerMessage
+                    })
+            );
+
+        case ACTION_TYPE.CLEAR_CODE_PLAYER_TESTRESULT:
+            return (
+                Object.assign({}, state, 
+                    { 
+                        codeEditorCodeStatus : undefined,
+                        codeEditorMessage : ""
+                    })
+            );
+
+        case ACTION_TYPE.STORE_CODE_EDITOR_CODE:
+            return (
+                Object.assign({}, state, 
+                   {
+                        codeEditorCode : action.codeEditorCode
+                   })
+            );
 
         case ACTION_TYPE.STORE_CANVAS:
             return (

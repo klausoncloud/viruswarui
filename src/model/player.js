@@ -72,11 +72,18 @@ class Player {
 
   static externalPlayerTypeIdx = 3; // Oh so dirty...
 
+  /*
+  ** The server has three built-in players. They are mapped below.
+  ** In addition, the server accepts 'url' and 'code' as additional types.
+  ** For built-in players, the data field has to represent a number. For
+  ** url and code it has to provide the targets to run (aka url and actual code).
+  ** The UI shows the description and used the id as key.
+  */
   static defaultPlayerTypes() {
     return [ 
-      { type : 'builtIn', data : '0', description : 'Built in: Stationary, fire only'},
-      { type : 'builtIn', data : '1', description : 'Built in: Balance moving and firing'},
-      { type : 'builtIn', data : '2', description : 'Built in: Spawn - avoid being killed'}
+      { id: 0, type : 'builtIn', data : '0', description : 'Built in: Stationary, fire only'},
+      { id: 1, type : 'builtIn', data : '1', description : 'Built in: Balance moving and firing'},
+      { id: 2, type : 'builtIn', data : '2', description : 'Built in: Spawn - avoid being killed'}
     ];
   }
 }

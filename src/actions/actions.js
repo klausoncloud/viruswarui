@@ -2,6 +2,7 @@ import * as ACTION_TYPE from './actiontypes';
 import * as EP_STATUS from './../model/externalprogramstatus';
 
 import GameServer from './gameserver';
+import FileServer from './fileserver';
 
 export const setPlayerType = (playerId, typeId) => {
   return {
@@ -38,28 +39,60 @@ export const setPlayerStatus = (playerId, status) => {
   }
 }
 
-export const setExternalPlayer = externalPlayerURL => {
+export const setUrlPlayer = urlPlayerURL => {
   return {
-    type : ACTION_TYPE.SET_EXTERNAL_PLAYER,
+    type : ACTION_TYPE.SET_URL_PLAYER,
     // Todo: Convert URL into an external player!
-    externalPlayerURL : externalPlayerURL
+    urlPlayerURL : urlPlayerURL
   }
 }
 
-export const setExternalPlayerTestURL = (url, passed, message) => {
+export const setUrlPlayerUrl = (url, passed, message) => {
   let status;
 
   if (passed) {
-    status = EP_STATUS.EXTERNALPROGRAM_TEST_OK;
+    status = EP_STATUS.URL_PROGRAM_TEST_OK;
   } else {
-    status = EP_STATUS.EXTERNALPROGRAM_TEST_FAILURE;
+    status = EP_STATUS.URL_PROGRAM_TEST_FAILURE;
   }
 
   return {
-    type : ACTION_TYPE.SET_EXTERNAL_PLAYER_TESTURL,
-    externalPlayerURL : url,
-    externalPlayerStatus : status,
-    externalPlayerMessage : message
+    type : ACTION_TYPE.SET_URL_PLAYER_URL,
+    urlPlayerURL : url,
+    urlPlayerStatus : status,
+    urlPlayerMessage : message
+  }
+}
+
+export const setCodePlayer = codePlayerCode => {
+  return {
+    type : ACTION_TYPE.SET_CODE_PLAYER,
+    // Todo: Convert URL into an external player!
+    codePlayerCode : codePlayerCode
+  }
+}
+
+export const setCodePlayerCode = (code, passed, message) => {
+  let status;
+
+  if (passed) {
+    status = EP_STATUS.CODE_PROGRAM_TEST_OK;
+  } else {
+    status = EP_STATUS.CODE_PROGRAM_TEST_FAILURE;
+  }
+
+  return {
+    type : ACTION_TYPE.SET_CODE_PLAYER_CODE,
+    codePlayerCode : code,
+    codePlayerStatus : status,
+    codePlayerMessage : message
+  }
+}
+
+export const storeCodeEditorCode = (code) => {
+  return {
+    type: ACTION_TYPE.STORE_CODE_EDITOR_CODE,
+    codeEditorCode : code
   }
 }
 
@@ -69,9 +102,15 @@ export const clearMessages = () => {
   }
 }
 
-export const clearExternalPlayerTestResult = () => {
+export const clearUrlPlayerTestResult = () => {
   return {
-    type : ACTION_TYPE.CLEAR_EXTERNAL_PLAYER_TESTRESULT
+    type : ACTION_TYPE.CLEAR_URL_PLAYER_TESTRESULT
+  }
+}
+
+export const clearCodePlayerTestResult = () => {
+  return {
+    type : ACTION_TYPE.CLEAR_CODE_PLAYER_TESTRESULT
   }
 }
 
@@ -92,11 +131,31 @@ export function requestGameStart(players, playerTypes) {
   }
 }
 
-export function requestTestExternalPlayer(url) {
+export function requestTestUrlPlayer(url) {
   return function (dispatch) {
-    return GameServer.testPlayer(url).then( (result) => {
-      dispatch(setExternalPlayerTestURL(url, result.passed, result.message))
+    return GameServer.testUrlPlayer(url).then( (result) => {
+      dispatch(setUrlPlayerUrl(url, result.passed, result.message))
     }).catch(error => { 
+      throw(error);
+    });
+  }
+}
+
+export function requestTestCodePlayer(code) {
+  return function (dispatch) {
+    return GameServer.testCodePlayer(code).then( (result) => {
+      dispatch(setCodePlayerCode(code, result.passed, result.message))
+    }).catch(error => { 
+      throw(error);
+    });
+  }
+}
+
+export function loadCodePlayerCodeExample() {
+  return function(dispatch) {
+    return FileServer.fetchCodeExample().then( (code) => {
+      dispatch(storeCodeEditorCode(code))
+    }).catch(error => {
       throw(error);
     });
   }

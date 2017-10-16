@@ -42,7 +42,7 @@ class PlayerList extends Component {
                  name={ player.getId() } onChange={ (event) => { this.handleSelectionChange(event) } }>
 
                 { this.props.playerTypes.map( 
-                  type => <option key={ type.data } value={ type.data } > { type.description } </option>)}
+                  type => <option key={ type.id } value={ type.id } > { type.description } </option>)}
 
               </select>
             </div> )

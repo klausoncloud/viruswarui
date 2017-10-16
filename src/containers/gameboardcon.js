@@ -8,9 +8,9 @@ const mapStateToProps = (state) => {
         playerTypes : state.playerTypes,
         moves : state.moves,
 
-        externalPLayer : state.externalPLayer,
-	    externalPlayerURL : state.externalPlayerURL,
-	    externalPlayerURLTestResult : state.externalPlayerURLTestResult,
+        urlPLayer : state.urlPLayer,
+	    urlPlayerURL : state.urlPlayerURL,
+	    urlPlayerURLTestResult : state.urlPlayerURLTestResult,
 
 	    gameViz : state.gameViz,
 	    storedCanvas : state.storedCanvas

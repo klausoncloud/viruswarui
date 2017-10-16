@@ -18,6 +18,7 @@ class GameServer {
 	      { 'type' : 'builtin', 'data' : 0, 'id' : 1 },
 	      { 'type' : 'builtin', 'data' : 0, 'id' : 2 },
 	      { 'type' : 'url', 'data' : 'http:/...', 'id' : 3 }
+	      { 'type' : 'code', 'data' : 'import ...', 'id' : 3 }
 	    ]
     	*/
     	let apiPlayers = [];
@@ -67,12 +68,12 @@ class GameServer {
 		      });
 	}
 
-	static testPlayer (playerUrl) {
+	static _testPlayer (type, data) {
 
       let url = this.urlTestPlayer;
       let bodyObject = { 
-      	'type': 'url',
-      	'data': playerUrl,
+      	'type': type,
+      	'data': data,
       	'id' : 0 }; 	     
 	  let payload = { 
 	  	method : 'POST',
@@ -96,12 +97,20 @@ class GameServer {
 		      });
 	}
 
+	static testUrlPlayer (playerUrl) {
+		return this._testPlayer('url', playerUrl);
+	}
+
+	static testCodePlayer (code) {
+		return this._testPlayer('code', code);
+	}
+
     // For test purposes only.
     static testPlayerTest (playerUrl) {
 	  return new Promise(
 	  	(resolve, reject) => {
 	  		let result = { 
-	  			status: STATUS.EXTERNALPROGRAM_TEST_OK, 
+	  			status: STATUS.URL_PROGRAM_TEST_OK, 
 	  			message: "Perfect." 
 	  		};
 
@@ -109,7 +118,5 @@ class GameServer {
 	  	});
 	}
 }
-
-
 
 export default GameServer;

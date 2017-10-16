@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import GameServer from './../../actions/gameserver';
 import * as STATUS from './../../model/externalprogramstatus';
 
-class ExternalProgram extends Component {
+class UrlProgram extends Component {
 
   handleTestRequest() {
   	let programURL = document.getElementById("basic-url").value;
@@ -18,37 +18,37 @@ class ExternalProgram extends Component {
   }
 
   handleInputChange() {
-    if (this.props.externalProgramStatus !== undefined) {
+    if (this.props.urlProgramStatus !== undefined) {
       this.props.onClearTestResults();
     }
   }
 
-  renderAlert(externalProgramStatus) {
+  renderAlert(urlProgramStatus) {
     
     let alertNeeded = false;
     let alertText = "Oh no! There should not be an alert.";
     let alertClass = "";
 
-    switch (externalProgramStatus) {
-      case STATUS.EXTERNALPROGRAM_TEST_OK:
+    switch (urlProgramStatus) {
+      case STATUS.URL_PROGRAM_TEST_OK:
         alertNeeded = true;
         alertClass = "alert alert-success";
         alertText = "The program passed the test. You can add it.";
         break;
-      case STATUS.EXTERNALPROGRAM_TEST_FAILURE:
+      case STATUS.URL_PROGRAM_TEST_FAILURE:
         alertNeeded = true;
         alertClass = "alert alert-warning";
-        alertText = "The program failed the test (" + this.props.externalProgramMessage + ").";
+        alertText = "The program failed the test (" + this.props.urlProgramMessage + ").";
         break;
-      case STATUS.EXTERNALPROGRAM_ADD_OK:
+      case STATUS.URL_PROGRAM_ADD_OK:
         alertNeeded = true;
         alertClass = "alert alert-success";
         alertText = "The program has been added. Play a few rounds to see how it does.";
         break;
-      case STATUS.EXTERNALPROGRAM_ADD_FAILURE:
+      case STATUS.URL_PROGRAM_ADD_FAILURE:
         alertNeeded = true;
         alertClass = "alert alert-failure";
-        alertText =  "The program was not added. Something went wrong (" + this.props.externalProgramMessage + ").";
+        alertText =  "The program was not added. Something went wrong (" + this.props.urlProgramMessage + ").";
         break;
       default:  // Render nothing.
     }
@@ -68,8 +68,8 @@ class ExternalProgram extends Component {
   }
 
   renderAddButton() {
-    if (this.props.externalProgramStatus !== undefined && 
-        this.props.externalProgramStatus === STATUS.EXTERNALPROGRAM_TEST_OK) {
+    if (this.props.urlProgramStatus !== undefined && 
+        this.props.urlProgramStatus === STATUS.URL_PROGRAM_TEST_OK) {
 
       return(
 
@@ -83,7 +83,7 @@ class ExternalProgram extends Component {
 
     } else {
 
-       return(
+      return(
 
         <div className="col-2">
           <button className="btn btn-success" type="button"
@@ -105,7 +105,7 @@ class ExternalProgram extends Component {
           <div className="input-group">
             <span className="input-group-addon" id="basic-addon3">http://example.com:3000/</span>
             <input type="url" className="form-control" id="basic-url" aria-describedby="basic-addon3"
-              defaultValue = { this.props.externalProgramURL }
+              defaultValue = { this.props.urlProgramURL }
               onInput = { () => { this.handleInputChange() } }
             >
             </input>
@@ -119,11 +119,11 @@ class ExternalProgram extends Component {
 
         { this.renderAddButton() }
 
-        { this.renderAlert(this.props.externalProgramStatus) }
+        { this.renderAlert(this.props.urlProgramStatus) }
         
       </div>
     );
   }
 }
 
-export default ExternalProgram;
+export default UrlProgram;

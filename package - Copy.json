@@ -13,6 +13,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.13",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
@@ -30,7 +31,6 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0",
-    "react-scripts": "^1.0.14",
     "redux-devtools": "^3.4.0"
   },
   "proxy": "http://localhost:8080"
